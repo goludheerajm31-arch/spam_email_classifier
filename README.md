@@ -4,8 +4,11 @@
 ##  Student Profile
 
 **Name:** Dheeraj Kumar Mahto
+
 **Registration no.:** 25BCE10465 
-**Course:** Fundamentals of Artificial Intelligence and Machine Learning  
+
+**Course:** Fundamentals of Artificial Intelligence and Machine Learning
+
 **Project Repository:** https://github.com/goludheerajm31-arch/spam_email_classifier.git
 
 This project was built to understand how Machine Learning can be applied to real-world cybersecurity problems such as spam and phishing email detection.
