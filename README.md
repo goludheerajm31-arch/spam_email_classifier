@@ -1,145 +1,217 @@
-🛡️ Spam Email Classifier — CLI Application
-Course: Fundamentals of Artificial Intelligence and Machine Learning
-Project Type: End-to-End Machine Learning CLI Application
-Language: Python 3.8+
-👨‍🎓 Student Profile
-Student Name: Dheeraj
-Program: B.Tech Engineering
-Course: Fundamentals of Artificial Intelligence and Machine Learning
-Project Type: Academic Mini Project (CLI-based ML Application)
-This project was developed as part of coursework to understand how machine learning models are applied in real-world cybersecurity problems such as spam and phishing detection.
-📌 Project Overview
-Email spam and phishing attacks are among the most common cybersecurity threats today. This project implements a command-line application that automatically classifies emails as Spam (malicious) or Ham (legitimate) using Machine Learning.
-The goal of this project is not only to build a working classifier but also to demonstrate the complete ML workflow — from data preprocessing and training to evaluation and real-time prediction — all through a simple interactive terminal interface.
-🧠 Machine Learning Concepts Used
-Concept	What it Means (Simple Explanation)
-TF-IDF Vectorization	Converts text into numbers so the ML model can understand email content. Important words receive higher weight.
-Multinomial Naive Bayes	A lightweight algorithm well suited for text classification problems like spam detection.
-Train/Test Split	Dataset is divided into training data (80%) and testing data (20%) to evaluate performance fairly.
-Stopword Removal	Removes common words such as the, is, at which do not help classification.
-Text Preprocessing	Cleans text by converting to lowercase and removing punctuation/noise.
-Pickle Serialization	Saves trained models so they can be reused without retraining every time.
-📁 Project Structure
-spam-email-classifier-cli/
+# Spam & Phishing Email Classifier — CLI
+
+---
+
+## Student Profile
+
+| | |
+|---|---|
+| **Name** | Dheeraj Kumar Mahto |
+| **Enrollment No.** | [Your Enrollment / Student ID] |
+| **University** | [Your University / College Name] |
+| **Department** | [Your Department — e.g. B.Tech CSE / BCA / MCA] |
+| **Semester / Year** | [e.g. 5th Semester / 3rd Year] |
+| **Course** | Fundamentals of Artificial Intelligence and Machine Learning |
+| **Guide / Professor** | [Professor's Name] |
+
+---
+
+Spam filters have been around for decades, but building one from scratch is still one of the best ways to understand how text classification actually works under the hood. That's what this project does — a terminal-based tool that trains a Naive Bayes model on labelled email data, saves it, and lets you run predictions either by typing text or pointing it at a file.
+
+No web interface, no notebooks. Just Python and the command line.
+
+---
+
+## How it works (the short version)
+
+The model can't read text the way a person does, so the first job is converting emails into numbers. I used **TF-IDF** (Term Frequency–Inverse Document Frequency), which scores each word based on how often it shows up in a given email *and* how rare it is across the whole dataset. A word like "free" appearing repeatedly in one email but rarely in others gets a high score — and that's exactly the kind of signal that separates spam from normal mail.
+
+Once the emails are vectorised, a **Multinomial Naive Bayes** classifier learns the statistical patterns — which words are more likely in spam, which are more common in legitimate email. It's a simple algorithm, but it's surprisingly good at this task and trains in under a second even on larger datasets.
+
+The full flow looks like this:
+
+```
+emails.csv  →  clean text  →  TF-IDF matrix  →  Naive Bayes  →  model.pkl
+                                                                      ↓
+                                              new email  →  SPAM or HAM + confidence %
+```
+
+The trained model gets saved to disk, so you only need to train once. After that, predictions are instant.
+
+---
+
+## Project structure
+
+```
+spam-classifier-cli/
 │
 ├── data/
-│   └── emails.csv
+│   └── emails.csv          training dataset
 │
 ├── models/
-│   ├── model.pkl
-│   └── vectorizer.pkl
+│   ├── model.pkl           saved classifier  (created after training)
+│   └── vectorizer.pkl      saved TF-IDF vectorizer  (created after training)
 │
-├── main.py
-├── train.py
-├── predict.py
-├── preprocess.py
-├── evaluate.py
-├── utils.py
+├── main.py                 the only file you need to run
+├── train.py                training pipeline
+├── predict.py              prediction logic
+├── preprocess.py           text cleaning
+├── evaluate.py             metrics and confusion matrix
+├── utils.py                shared helpers, path constants, error messages
 │
 ├── requirements.txt
 └── README.md
-⚙️ Installation Guide
-1️⃣ Clone or Download Project
+```
+
+The `models/` and `data/` folders are created automatically if they don't exist. If `emails.csv` is missing, the app generates a 50-email demo dataset so you can test it right away.
+
+---
+
+## Getting started
+
+```bash
+# 1. Clone the repo
 git clone <repository-url>
 cd spam-classifier-cli
-Or download the ZIP and open the folder in terminal.
-2️⃣ Create Virtual Environment (Recommended)
-python -m venv venv
-Activate:
-Windows
-venv\Scripts\activate
-macOS / Linux
-source venv/bin/activate
-3️⃣ Install Dependencies
-pip install -r requirements.txt
-NLTK stopwords will download automatically during first execution.
-🚀 Running the Application
-python main.py
-You will see an interactive menu:
-══════════════════════════════════════════════
-  🛡️ Spam & Phishing Email Classifier CLI
-══════════════════════════════════════════════
 
-1. Train Model
-2. Evaluate Model
-3. Classify an Email
-4. Classify from File
-5. Help
-6. Exit
-📋 Menu Options
-Option	Function
-1	Train model using dataset
-2	Evaluate model performance
-3	Classify pasted email text
-4	Classify email from .txt file
-5	Help & explanations
-6	Exit application
-🔄 Machine Learning Workflow
-Dataset (emails.csv)
-        ↓
-Text Cleaning & Preprocessing
-        ↓
-TF-IDF Feature Extraction
-        ↓
-Naive Bayes Training
-        ↓
-Model Saved (pickle)
-        ↓
-New Email Input
-        ↓
-Prediction → SPAM / HAM
-💻 Example Output
-Training
-[✓] Dataset loaded
-[✓] Text preprocessing completed
-[✓] Model trained successfully
-[✓] Model saved to models/model.pkl
-Prediction
-Verdict    : SPAM
-Confidence : 98.7%
-⚠️ Avoid clicking suspicious links.
-📂 Dataset Format
-data/emails.csv
-text,label
-"Congratulations! You won a free iPhone!",spam
-"Meeting scheduled tomorrow",ham
-text → Email content
-label → spam / ham
-🛡️ Error Handling Features
-The program safely handles:
-Missing dataset (auto demo dataset created)
-Model not trained warning
-Invalid menu input
-Empty email input
-Missing files
-Keyboard interrupt (Ctrl+C exit)
-🔧 Custom Dataset Usage
-Replace data/emails.csv
-Keep columns: text,label
-Run Train Model again
-Recommended: minimum 200+ labelled emails for better accuracy.
-📦 Libraries Used
-Library	Purpose
-scikit-learn	ML algorithms & evaluation
-pandas	Dataset handling
-numpy	Numerical processing
-nltk	Stopword removal
-Install using:
+# 2. Set up a virtual environment (recommended)
+python -m venv venv
+source venv/bin/activate        # Windows: venv\Scripts\activate
+
+# 3. Install dependencies
 pip install -r requirements.txt
-👨‍💻 Module Responsibilities
-File	Role
-main.py	CLI interface and menu logic
-train.py	Training pipeline
-predict.py	Email classification
-preprocess.py	Text cleaning functions
-evaluate.py	Performance metrics
-utils.py	Shared utilities and helpers
-🎯 Learning Outcomes
-Through this project, I learned:
-How text data is converted into machine-readable features
-Training and evaluating ML models
-Building modular Python applications
-Creating interactive CLI tools
-Applying AI concepts to cybersecurity problems
-📄 License
-This project is created for educational purposes as part of academic coursework.
+
+# 4. Run the app
+python main.py
+```
+
+NLTK stopwords download automatically on the first run — you don't need to do anything extra.
+
+---
+
+## Running the app
+
+```bash
+python main.py
+```
+
+```
+════════════════════════════════════════════════════
+  🛡️  Spam & Phishing Email Classifier CLI
+      Fundamentals of AI and Machine Learning
+════════════════════════════════════════════════════
+
+  MAIN MENU
+  ──────────────────────────────────────────────────
+  1.  Train Model
+  2.  Evaluate Model
+  3.  Classify an Email  (type or paste text)
+  4.  Classify from File (.txt file path)
+  5.  Help
+  6.  Exit
+  ──────────────────────────────────────────────────
+  Enter choice (1-6):
+```
+
+**Start with option 1.** Training takes a couple of seconds and saves the model files. After that, options 2–4 are available.
+
+---
+
+## What each option does
+
+**1 — Train Model**
+Loads `data/emails.csv`, cleans the text, fits the TF-IDF vectorizer on 80% of the data, trains Naive Bayes on the result, and saves both `model.pkl` and `vectorizer.pkl` to the `models/` folder.
+
+**2 — Evaluate Model**
+Runs the saved model against the held-out 20% test split and prints accuracy, precision, recall, and F1 score — plus a confusion matrix breaking down true/false positives and negatives.
+
+**3 — Classify an Email**
+Prompts you to paste or type an email. Hit Enter on a blank line when done. You get a verdict (SPAM or HAM) and a confidence percentage.
+
+**4 — Classify from File**
+Give it a path to any `.txt` file and it reads and classifies the content automatically.
+
+**5 — Help**
+In-terminal guide covering ML concepts, workflow, and usage tips.
+
+---
+
+## Sample output
+
+Training:
+```
+  [1/5] Loading dataset...
+  [✓] Dataset loaded: 50 emails ({'spam': 25, 'ham': 25})
+
+  [2/5] Cleaning and preprocessing text...
+        50 valid samples after cleaning.
+
+  [3/5] Splitting data (80% train / 20% test)...
+        Train samples: 40 | Test samples: 10
+
+  [4/5] Fitting TF-IDF vectorizer...
+        Vocabulary size: 400 features
+
+  [5/5] Training Multinomial Naive Bayes classifier...
+
+  [✓] Model saved     → models/model.pkl
+  [✓] Vectorizer saved → models/vectorizer.pkl
+  ✅  Training complete!
+```
+
+Classifying:
+```
+  Email text (blank line to finish):
+  > Congratulations! You have won a FREE iPhone. Click here now!
+  >
+
+  🚨  CLASSIFICATION RESULT
+  ──────────────────────────────────────────────────
+  Verdict    : SPAM
+  Confidence : 98.7%  [████████████████████]
+  ──────────────────────────────────────────────────
+  ⚠️  Do NOT click links or share personal information.
+```
+
+Evaluation on the 50-email demo dataset:
+```
+  Accuracy  : 0.9000  [██████████████████░░]  90.0%
+  Precision : 0.8333  [████████████████░░░░]  83.3%
+  Recall    : 1.0000  [████████████████████]  100.0%
+  F1 Score  : 0.9091  [██████████████████░░]  90.9%
+```
+
+A 100% recall on spam means the model caught every single spam email in the test set — zero missed. The one false alarm (a legitimate email flagged as spam) is what pulls precision below perfect. For a 50-email training set, that's a reasonable tradeoff.
+
+---
+
+## Using your own dataset
+
+The app expects a CSV with two columns: `text` (the email body) and `label` (either `spam` or `ham`). Replace `data/emails.csv` with your file and retrain with option 1.
+
+```csv
+text,label
+"Win a free vacation now — limited spots!",spam
+"The project review is set for Tuesday at 2pm.",ham
+```
+
+More data improves results meaningfully — the included dataset is intentionally small for portability. A few hundred balanced examples is a reasonable starting point for real testing.
+
+---
+
+## Dependencies
+
+- `scikit-learn` — TF-IDF vectorizer, Naive Bayes, evaluation metrics
+- `pandas` — loading the CSV
+- `numpy` — underlying numerical operations
+- `nltk` — English stopword list (auto-downloaded; the app has a built-in fallback if unavailable)
+
+---
+
+## Notes on a few design choices
+
+I kept preprocessing simple on purpose — lowercase, remove punctuation and numbers, strip stopwords. More aggressive approaches like stemming or lemmatisation don't always help with Naive Bayes and add complexity for marginal gains on this kind of task.
+
+`random_state=42` in both the train/test split and the classifier means results are fully reproducible across runs. The split also uses `stratify=y` so spam and ham stay proportionally balanced between train and test.
+
+Bigrams (`ngram_range=(1, 2)`) are included in the vectorizer. The phrase "guaranteed income" is a stronger spam signal than either word alone — bigrams help capture patterns like that.
