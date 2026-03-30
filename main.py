@@ -29,7 +29,7 @@ from evaluate import evaluate_model
 from predict import predict_text, predict_from_file
 
 
-# ---------------------- MENU UI ----------------------
+# ---------------------- MENU UI ----------------
 
 def display_menu():
     """Prints main menu options."""
@@ -45,7 +45,7 @@ def display_menu():
     print_separator("─")
 
 
-# ---------------------- ACTION HANDLERS ----------------------
+# ---------------------- ACTION HANDLERS -------------------
 
 def handle_train():
     """Start training pipeline."""
@@ -72,6 +72,7 @@ def handle_classify_text():
     print("Paste your email below.")
     print("Press Enter twice when done.\n")
 
+    
     lines = []
     while True:
         try:
@@ -94,8 +95,6 @@ def handle_classify_text():
         return
 
     predict_text(email_text)
-
-
 def handle_classify_file():
     """Classify email from a text file."""
     print()
@@ -117,6 +116,7 @@ def handle_help():
     print("""
 This project detects spam/phishing emails using ML.
 
+
 Workflow:
 1. Train the model first
 2. Classify emails
@@ -137,6 +137,8 @@ python main.py -> option 2 (evaluate)
     print()
 
 
+
+
 def handle_exit():
     """Exit program safely."""
     print("\nThanks for using the Spam Classifier. Bye!\n")
@@ -144,7 +146,6 @@ def handle_exit():
 
 
 # ---------------------- MAIN LOOP ----------------------
-
 def main():
     """Program entry point."""
     ensure_directories()
@@ -158,7 +159,6 @@ def main():
         "5": handle_help,
         "6": handle_exit,
     }
-
     while True:
         try:
             display_menu()
@@ -176,6 +176,8 @@ def main():
         except Exception as err:
             print_error(f"Unexpected error: {err}")
             print("Returning to menu...\n")
+
+
 
 
 # ---------------------- RUN SCRIPT ----------------------
