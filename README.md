@@ -1,6 +1,5 @@
 #  Spam Email Classifier — CLI Application
 
----
 
 ##  Student Profile
 
@@ -13,12 +12,12 @@ This project was built to understand how Machine Learning can be applied to real
 
 ---
 
-## Project Overview
+## 📌 Project Overview
 
 Spam and phishing emails are a major cybersecurity threat. This project presents a **Command-Line Interface (CLI) application** that automatically detects whether an email is:
 
- **HAM (Legitimate Email)**  
- **SPAM (Malicious / Phishing Email)**  
+✅ **HAM (Legitimate Email)**  
+🚨 **SPAM (Malicious / Phishing Email)**  
 
 The application demonstrates a complete **end-to-end Machine Learning pipeline**, including:
 
@@ -32,7 +31,7 @@ All operations are controlled through an interactive terminal menu.
 
 ---
 
-##  Key Features
+## ✨ Key Features
 
 - Interactive CLI menu system
 - Machine Learning based email classification
@@ -45,7 +44,7 @@ All operations are controlled through an interactive terminal menu.
 
 ---
 
-##  Technologies Used
+## 🧠 Technologies Used
 
 | Technology | Purpose |
 |---|---|
@@ -63,7 +62,7 @@ All operations are controlled through an interactive terminal menu.
 
 ## Project structure
 
-
+```
 spam-classifier-cli/
 │
 ├── data/
@@ -82,7 +81,7 @@ spam-classifier-cli/
 │
 ├── requirements.txt
 └── README.md
-
+```
 
 The `models/` and `data/` folders are created automatically if they don't exist. If `emails.csv` is missing, the app generates a 50-email demo dataset so you can test it right away.
 
