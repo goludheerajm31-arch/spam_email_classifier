@@ -1,292 +1,145 @@
-# 🛡️ Spam Email Classifier — CLI Application
-
-**Course:** Fundamentals of Artificial Intelligence and Machine Learning  
-**Project Type:** End-to-End Machine Learning CLI Application  
-**Language:** Python 3.8+
-
----
-
-## 📌 Project Description
-
-This command-line application uses **Machine Learning** to automatically detect whether an email is **Spam / Phishing** or **Legitimate (Ham)**. It demonstrates a complete AI/ML workflow — from raw text data to a trained model that makes real predictions — all controlled through an interactive terminal menu.
-
----
-
-## 🧠 AI / ML Concepts Explained
-
-| Concept | Explanation |
-|---|---|
-| **TF-IDF** | Converts words into numbers. Words rare across emails but frequent in one email score higher, making them stronger features. |
-| **Multinomial Naive Bayes** | A probabilistic classifier ideal for text. It learns which words appear more in spam vs. ham and uses those patterns for predictions. |
-| **Train / Test Split** | 80% of emails train the model; 20% are held back to test it fairly on unseen data. |
-| **Stopword Removal** | Common words (the, is, at, a) are removed because they carry no spam/ham signal. |
-| **Text Preprocessing** | Lowercasing, punctuation removal, and number removal ensure consistent input to the model. |
-| **Pickle Serialisation** | The trained model is saved to disk so it doesn't need to be retrained on every run. |
-
----
-
-## 📁 Folder Structure
-
-```
+🛡️ Spam Email Classifier — CLI Application
+Course: Fundamentals of Artificial Intelligence and Machine Learning
+Project Type: End-to-End Machine Learning CLI Application
+Language: Python 3.8+
+👨‍🎓 Student Profile
+Student Name: Dheeraj
+Program: B.Tech Engineering
+Course: Fundamentals of Artificial Intelligence and Machine Learning
+Project Type: Academic Mini Project (CLI-based ML Application)
+This project was developed as part of coursework to understand how machine learning models are applied in real-world cybersecurity problems such as spam and phishing detection.
+📌 Project Overview
+Email spam and phishing attacks are among the most common cybersecurity threats today. This project implements a command-line application that automatically classifies emails as Spam (malicious) or Ham (legitimate) using Machine Learning.
+The goal of this project is not only to build a working classifier but also to demonstrate the complete ML workflow — from data preprocessing and training to evaluation and real-time prediction — all through a simple interactive terminal interface.
+🧠 Machine Learning Concepts Used
+Concept	What it Means (Simple Explanation)
+TF-IDF Vectorization	Converts text into numbers so the ML model can understand email content. Important words receive higher weight.
+Multinomial Naive Bayes	A lightweight algorithm well suited for text classification problems like spam detection.
+Train/Test Split	Dataset is divided into training data (80%) and testing data (20%) to evaluate performance fairly.
+Stopword Removal	Removes common words such as the, is, at which do not help classification.
+Text Preprocessing	Cleans text by converting to lowercase and removing punctuation/noise.
+Pickle Serialization	Saves trained models so they can be reused without retraining every time.
+📁 Project Structure
 spam-email-classifier-cli/
 │
 ├── data/
-│   └── emails.csv          ← Training dataset (text, label)
+│   └── emails.csv
 │
 ├── models/
-│   ├── model.pkl           ← Saved trained classifier (auto-generated)
-│   └── vectorizer.pkl      ← Saved TF-IDF vectorizer (auto-generated)
+│   ├── model.pkl
+│   └── vectorizer.pkl
 │
-├── main.py                 ← CLI entry point and menu loop
-├── train.py                ← Training pipeline
-├── predict.py              ← Prediction functions
-├── preprocess.py           ← Text cleaning utilities
-├── evaluate.py             ← Model evaluation and metrics
-├── utils.py                ← Shared helpers and constants
+├── main.py
+├── train.py
+├── predict.py
+├── preprocess.py
+├── evaluate.py
+├── utils.py
 │
-├── requirements.txt        ← Python dependencies
-└── README.md               ← This file
-```
-
----
-
-## ⚙️ Installation
-
-### 1. Clone / download the project
-```bash
-# If using git:
+├── requirements.txt
+└── README.md
+⚙️ Installation Guide
+1️⃣ Clone or Download Project
 git clone <repository-url>
 cd spam-classifier-cli
-
-# Or simply extract the zip and navigate to the folder:
-cd spam-classifier-cli
-```
-
-### 2. (Optional but recommended) Create a virtual environment
-```bash
+Or download the ZIP and open the folder in terminal.
+2️⃣ Create Virtual Environment (Recommended)
 python -m venv venv
-
-# Activate — Windows:
+Activate:
+Windows
 venv\Scripts\activate
-
-# Activate — macOS / Linux:
+macOS / Linux
 source venv/bin/activate
-```
-
-### 3. Install dependencies
-```bash
+3️⃣ Install Dependencies
 pip install -r requirements.txt
-```
-
-> **Note:** NLTK stopwords are downloaded automatically the first time you run the application. No manual setup required.
-
----
-
-## 🚀 How to Run
-
-```bash
+NLTK stopwords will download automatically during first execution.
+🚀 Running the Application
 python main.py
-```
+You will see an interactive menu:
+══════════════════════════════════════════════
+  🛡️ Spam & Phishing Email Classifier CLI
+══════════════════════════════════════════════
 
-You will see:
-
-```
-════════════════════════════════════════════════════
-  🛡️  Spam & Phishing Email Classifier CLI
-      Fundamentals of AI and Machine Learning
-════════════════════════════════════════════════════
-
-────────────────────────────────────────────────────
-  MAIN MENU
-────────────────────────────────────────────────────
-  1.  Train Model
-  2.  Evaluate Model
-  3.  Classify an Email  (type or paste text)
-  4.  Classify from File (.txt file path)
-  5.  Help
-  6.  Exit
-────────────────────────────────────────────────────
-  Enter choice (1-6):
-```
-
----
-
-## 📋 Commands Reference
-
-| Option | Action | Description |
-|---|---|---|
-| **1** | Train Model | Loads dataset, preprocesses text, trains Naive Bayes, saves model files |
-| **2** | Evaluate Model | Tests the saved model; shows Accuracy, Precision, Recall, F1, Confusion Matrix |
-| **3** | Classify an Email | Type / paste email text; get instant SPAM or HAM verdict with confidence % |
-| **4** | Classify from File | Provide path to a `.txt` file; the content is classified automatically |
-| **5** | Help | Detailed usage guide and ML concept explanations |
-| **6** | Exit | Safely exits the application |
-
----
-
-## 🔄 ML Workflow (Step by Step)
-
-```
-  Raw Email Data (emails.csv)
-        │
-        ▼
-  Text Preprocessing  ←──── preprocess.py
-  (lowercase, remove punctuation, stopwords)
-        │
-        ▼
-  TF-IDF Vectorisation  ←── train.py / scikit-learn
-  (text → numerical feature matrix)
-        │
-        ▼
-  Model Training  ←────────── train.py
-  (Multinomial Naive Bayes, random_state=42)
-        │
-        ▼
-  Save Model & Vectorizer  ←── utils.py / pickle
-  (models/model.pkl, models/vectorizer.pkl)
-        │
-        ▼
-  New Email Input  ←────────── main.py / predict.py
-        │
-        ▼
-  Same Preprocessing + Transform
-        │
-        ▼
-  Prediction → SPAM or HAM  + Confidence %
-```
-
----
-
-## 💻 Example Usage Sessions
-
-### Training the model
-```
-Enter choice (1-6): 1
-
-  ────────────────────────────────────────────────────
-    🚀  MODEL TRAINING PIPELINE
-  ────────────────────────────────────────────────────
-
-  [1/5] Loading dataset...
-  [✓] Dataset loaded: 50 emails ({'ham': 25, 'spam': 25})
-
-  [2/5] Cleaning and preprocessing text...
-        50 valid samples after cleaning.
-
-  [3/5] Splitting data (80% train / 20% test)...
-        Train samples: 40 | Test samples: 10
-
-  [4/5] Fitting TF-IDF vectorizer...
-        Vocabulary size: 312 features
-
-  [5/5] Training Multinomial Naive Bayes classifier...
-
-  Saving model files...
-  [✓] Model saved     → models/model.pkl
-  [✓] Vectorizer saved → models/vectorizer.pkl
-
-  ✅  Training complete! Model is ready to use.
-```
-
-### Classifying an email
-```
-Enter choice (1-6): 3
-
-  ✉️   CLASSIFY AN EMAIL
-  ────────────────────────────────────────────────────
-  Email text (blank line to finish):
-  > Congratulations! You have won a FREE iPhone. Click here now!
-  >
-
-  ────────────────────────────────────────────────────
-  🚨  CLASSIFICATION RESULT
-  ────────────────────────────────────────────────────
-  Source     : Direct Input
-  Verdict    : SPAM
-  Confidence : 98.7%  [████████████████████]
-  ────────────────────────────────────────────────────
-  ⚠️  This email shows signs of spam or phishing.
-      Do NOT click links or share personal information.
-```
-
-### Evaluating the model
-```
-Enter choice (1-6): 2
-
-  CLASSIFICATION METRICS  (positive class = spam)
-  ════════════════════════════════════════════════
-
-  Accuracy     : 0.9000  [██████████████████░░]  90.0%
-  Precision    : 1.0000  [████████████████████]  100.0%
-  Recall       : 0.8000  [████████████████░░░░]  80.0%
-  F1 Score     : 0.8889  [█████████████████░░░]  88.9%
-```
-
----
-
-## 📂 Dataset Format
-
-The CSV file (`data/emails.csv`) must have exactly two columns:
-
-```csv
+1. Train Model
+2. Evaluate Model
+3. Classify an Email
+4. Classify from File
+5. Help
+6. Exit
+📋 Menu Options
+Option	Function
+1	Train model using dataset
+2	Evaluate model performance
+3	Classify pasted email text
+4	Classify email from .txt file
+5	Help & explanations
+6	Exit application
+🔄 Machine Learning Workflow
+Dataset (emails.csv)
+        ↓
+Text Cleaning & Preprocessing
+        ↓
+TF-IDF Feature Extraction
+        ↓
+Naive Bayes Training
+        ↓
+Model Saved (pickle)
+        ↓
+New Email Input
+        ↓
+Prediction → SPAM / HAM
+💻 Example Output
+Training
+[✓] Dataset loaded
+[✓] Text preprocessing completed
+[✓] Model trained successfully
+[✓] Model saved to models/model.pkl
+Prediction
+Verdict    : SPAM
+Confidence : 98.7%
+⚠️ Avoid clicking suspicious links.
+📂 Dataset Format
+data/emails.csv
 text,label
 "Congratulations! You won a free iPhone!",spam
-"Meeting scheduled for Thursday at 3pm",ham
-```
-
-- `text`  — The raw email body  
-- `label` — Either `spam` or `ham`
-
-> A 50-email demo dataset is **included** and also **auto-generated** if the file is missing.
-
----
-
-## 🛡️ Error Handling
-
-The application gracefully handles:
-
-| Scenario | Response |
-|---|---|
-| Dataset missing | Auto-generates a 50-email demo dataset |
-| Model not trained | Friendly message: "Please run Train Model first" |
-| Empty email input | Prompts user to re-enter |
-| Invalid menu choice | Displays "Invalid command! Please try again." |
-| File not found | Clear error with the attempted path |
-| `Ctrl+C` | Graceful exit with goodbye message |
-
----
-
-## 🔧 Customising the Dataset
-
-To use your own data:
-1. Prepare a CSV file with `text` and `label` columns
-2. Replace `data/emails.csv` with your file
-3. Run **Option 1 (Train Model)** to retrain on your data
-
-For best results, use at least **200+ labelled emails** with balanced spam/ham distribution.
-
----
-
-## 📦 Dependencies
-
-| Library | Purpose |
-|---|---|
-| `scikit-learn` | TF-IDF vectoriser, Naive Bayes classifier, evaluation metrics |
-| `pandas` | Loading and manipulating the CSV dataset |
-| `numpy` | Numerical operations (used internally by scikit-learn) |
-| `nltk` | English stopword list for text preprocessing |
-
-Install all at once: `pip install -r requirements.txt`
-
----
-
-## 👨‍💻 Module Responsibilities
-
-| File | Responsibility |
-|---|---|
-| `main.py` | CLI menu loop, command routing, keyboard interrupt handling |
-| `train.py` | Dataset loading, preprocessing, TF-IDF training, model saving |
-| `predict.py` | Loading saved model, classifying text/file input, displaying results |
-| `preprocess.py` | `clean_text()` — the single reusable text cleaning function |
-| `evaluate.py` | Accuracy, Precision, Recall, F1 Score, Confusion Matrix display |
-| `utils.py` | Path constants, directory creation, model I/O, input validation, error messages |
+"Meeting scheduled tomorrow",ham
+text → Email content
+label → spam / ham
+🛡️ Error Handling Features
+The program safely handles:
+Missing dataset (auto demo dataset created)
+Model not trained warning
+Invalid menu input
+Empty email input
+Missing files
+Keyboard interrupt (Ctrl+C exit)
+🔧 Custom Dataset Usage
+Replace data/emails.csv
+Keep columns: text,label
+Run Train Model again
+Recommended: minimum 200+ labelled emails for better accuracy.
+📦 Libraries Used
+Library	Purpose
+scikit-learn	ML algorithms & evaluation
+pandas	Dataset handling
+numpy	Numerical processing
+nltk	Stopword removal
+Install using:
+pip install -r requirements.txt
+👨‍💻 Module Responsibilities
+File	Role
+main.py	CLI interface and menu logic
+train.py	Training pipeline
+predict.py	Email classification
+preprocess.py	Text cleaning functions
+evaluate.py	Performance metrics
+utils.py	Shared utilities and helpers
+🎯 Learning Outcomes
+Through this project, I learned:
+How text data is converted into machine-readable features
+Training and evaluating ML models
+Building modular Python applications
+Creating interactive CLI tools
+Applying AI concepts to cybersecurity problems
+📄 License
+This project is created for educational purposes as part of academic coursework.
