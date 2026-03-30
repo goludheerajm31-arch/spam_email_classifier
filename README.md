@@ -4,16 +4,12 @@
 
 ## Student Profile
 
-| | |
-|---|---|
-| **Name** | Dheeraj Kumar Mahto |
-| **Enrollment No.** | [Your Enrollment / Student ID] |
-| **University** | [Your University / College Name] |
-| **Department** | [Your Department — e.g. B.Tech CSE / BCA / MCA] |
-| **Semester / Year** | [e.g. 5th Semester / 3rd Year] |
-| **Course** | Fundamentals of Artificial Intelligence and Machine Learning |
-| **Guide / Professor** | [Professor's Name] |
 
+ **Name**  Dheeraj Kumar Mahto 
+ **Enrollment No.** 25BCE10465 
+ **University** | VIT Bhopal University
+ **Department** | [Your Department — e.g. B.Tech CSE / BCA / MCA] |
+ **Course** | Fundamentals of Artificial Intelligence and Machine Learning 
 ---
 
 Spam filters have been around for decades, but building one from scratch is still one of the best ways to understand how text classification actually works under the hood. That's what this project does — a terminal-based tool that trains a Naive Bayes model on labelled email data, saves it, and lets you run predictions either by typing text or pointing it at a file.
