@@ -156,68 +156,6 @@ In-terminal guide covering ML concepts, workflow, and usage tips.
 
 ---
 
-## Sample output
-
-Training:
-```
-  [1/5] Loading dataset...
-  [✓] Dataset loaded: 50 emails ({'spam': 25, 'ham': 25})
-
-  [2/5] Cleaning and preprocessing text...
-        50 valid samples after cleaning.
-
-  [3/5] Splitting data (80% train / 20% test)...
-        Train samples: 40 | Test samples: 10
-
-  [4/5] Fitting TF-IDF vectorizer...
-        Vocabulary size: 400 features
-
-  [5/5] Training Multinomial Naive Bayes classifier...
-
-  [✓] Model saved     → models/model.pkl
-  [✓] Vectorizer saved → models/vectorizer.pkl
-  ✅  Training complete!
-```
-
-Classifying:
-```
-  Email text (blank line to finish):
-  > Congratulations! You have won a FREE iPhone. Click here now!
-  >
-
-  🚨  CLASSIFICATION RESULT
-  ──────────────────────────────────────────────────
-  Verdict    : SPAM
-  Confidence : 98.7%  [████████████████████]
-  ──────────────────────────────────────────────────
-  ⚠️  Do NOT click links or share personal information.
-```
-
-Evaluation on the 50-email demo dataset:
-```
-  Accuracy  : 0.9000  [██████████████████░░]  90.0%
-  Precision : 0.8333  [████████████████░░░░]  83.3%
-  Recall    : 1.0000  [████████████████████]  100.0%
-  F1 Score  : 0.9091  [██████████████████░░]  90.9%
-```
-
-A 100% recall on spam means the model caught every single spam email in the test set — zero missed. The one false alarm (a legitimate email flagged as spam) is what pulls precision below perfect. For a 50-email training set, that's a reasonable tradeoff.
-
----
-
-## Using your own dataset
-
-The app expects a CSV with two columns: `text` (the email body) and `label` (either `spam` or `ham`). Replace `data/emails.csv` with your file and retrain with option 1.
-
-```csv
-text,label
-"Win a free vacation now — limited spots!",spam
-"The project review is set for Tuesday at 2pm.",ham
-```
-
-More data improves results meaningfully — the included dataset is intentionally small for portability. A few hundred balanced examples is a reasonable starting point for real testing.
-
----
 
 ## Dependencies
 
@@ -228,10 +166,3 @@ More data improves results meaningfully — the included dataset is intentionall
 
 ---
 
-## Notes on a few design choices
-
-I kept preprocessing simple on purpose — lowercase, remove punctuation and numbers, strip stopwords. More aggressive approaches like stemming or lemmatisation don't always help with Naive Bayes and add complexity for marginal gains on this kind of task.
-
-`random_state=42` in both the train/test split and the classifier means results are fully reproducible across runs. The split also uses `stratify=y` so spam and ham stay proportionally balanced between train and test.
-
-Bigrams (`ngram_range=(1, 2)`) are included in the vectorizer. The phrase "guaranteed income" is a stronger spam signal than either word alone — bigrams help capture patterns like that.
