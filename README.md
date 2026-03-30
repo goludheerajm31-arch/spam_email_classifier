@@ -1,40 +1,71 @@
-# Spam & Phishing Email Classifier — CLI
+# 🛡️ Spam Email Classifier — CLI Application
+
+![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)
+![Machine Learning](https://img.shields.io/badge/Machine%20Learning-Scikit--Learn-orange)
+![Project Type](https://img.shields.io/badge/Project-CLI%20Application-green)
+![Status](https://img.shields.io/badge/Status-Completed-success)
+![License](https://img.shields.io/badge/License-Educational-lightgrey)
 
 ---
 
-## Student Profile
+## 👨‍🎓 Student Profile
 
+**Name:** Dheeraj  
+**Program:** B.Tech Engineering  
+**Course:** Fundamentals of Artificial Intelligence and Machine Learning  
+**Project Type:** Academic Machine Learning Project  
 
- **Name**  Dheeraj Kumar Mahto 
- **Enrollment No.** 25BCE10465 
- **University** VIT Bhopal University
- **Department**  [Your Department — e.g. B.Tech CSE / BCA / MCA] 
- **Course**  Fundamentals of Artificial Intelligence and Machine Learning 
----
-
-Spam filters have been around for decades, but building one from scratch is still one of the best ways to understand how text classification actually works under the hood. That's what this project does — a terminal-based tool that trains a Naive Bayes model on labelled email data, saves it, and lets you run predictions either by typing text or pointing it at a file.
-
-No web interface, no notebooks. Just Python and the command line.
+This project was built to understand how Machine Learning can be applied to real-world cybersecurity problems such as spam and phishing email detection.
 
 ---
 
-## How it works (the short version)
+## 📌 Project Overview
 
-The model can't read text the way a person does, so the first job is converting emails into numbers. I used **TF-IDF** (Term Frequency–Inverse Document Frequency), which scores each word based on how often it shows up in a given email *and* how rare it is across the whole dataset. A word like "free" appearing repeatedly in one email but rarely in others gets a high score — and that's exactly the kind of signal that separates spam from normal mail.
+Spam and phishing emails are a major cybersecurity threat. This project presents a **Command-Line Interface (CLI) application** that automatically detects whether an email is:
 
-Once the emails are vectorised, a **Multinomial Naive Bayes** classifier learns the statistical patterns — which words are more likely in spam, which are more common in legitimate email. It's a simple algorithm, but it's surprisingly good at this task and trains in under a second even on larger datasets.
+✅ **HAM (Legitimate Email)**  
+🚨 **SPAM (Malicious / Phishing Email)**  
 
-The full flow looks like this:
+The application demonstrates a complete **end-to-end Machine Learning pipeline**, including:
 
-```
-emails.csv  →  clean text  →  TF-IDF matrix  →  Naive Bayes  →  model.pkl
-                                                                      ↓
-                                              new email  →  SPAM or HAM + confidence %
-```
+- Data preprocessing
+- Feature extraction
+- Model training
+- Performance evaluation
+- Real-time prediction
 
-The trained model gets saved to disk, so you only need to train once. After that, predictions are instant.
+All operations are controlled through an interactive terminal menu.
 
 ---
+
+## ✨ Key Features
+
+- Interactive CLI menu system
+- Machine Learning based email classification
+- TF-IDF text feature extraction
+- Multinomial Naive Bayes model
+- Model saving using Pickle
+- Evaluation metrics (Accuracy, Precision, Recall, F1)
+- File-based and manual email classification
+- Friendly error handling
+
+---
+
+## 🧠 Technologies Used
+
+| Technology | Purpose |
+|---|---|
+| Python | Core programming language |
+| Scikit-learn | ML algorithms & evaluation |
+| Pandas | Dataset handling |
+| NumPy | Numerical operations |
+| NLTK | Stopword removal |
+| Pickle | Model serialization |
+
+---
+
+## 📁 Project Structure
+
 
 ## Project structure
 
